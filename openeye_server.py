@@ -20,7 +20,7 @@ def add_similar_articles(results):
         result['related'] = related_articles
 
 @app.route('/search',  methods=['GET', 'POST'])
-def login():
+def search_endpoint():
     query_string = request.form['search_input']
     results = solr_interaction.search_query(query_string, solr_instance)
     add_similar_articles(results)
