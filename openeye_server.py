@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 @app.route('/')
-def hello_world():
+def homepage_endpoint():
     return render_template('temp.html') 
 
 def add_similar_articles(results):
