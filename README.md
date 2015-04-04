@@ -21,3 +21,4 @@ How to run:
   6. run the website by entering the following command from the root directory of the project
     1. python openeye_server.py
   7. Enter the url specified in the output from running openeye_server.py into your favorite web browser and use OpenEye!
+  8. Bob's your uncle.
