@@ -5,7 +5,7 @@ from textblob import TextBlob
 import solr
 
 
-NUM_TOP_ARTICLES = 15
+NUM_TOP_ARTICLES = 30
 THREASHOLD_VALUE = 6
 
 def get_top(sentence, n):
@@ -23,6 +23,7 @@ def get_top(sentence, n):
     for entry in sorted_nps:
         if(i < n):
             arr.append(entry[0])
+        i += 1
     return arr
 
 def are_similar_top(top_a, top_b, threshold):
