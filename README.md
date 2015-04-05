@@ -1,7 +1,11 @@
 # openeye
 News Aggregator
-Suzanne
-John
+
+Suzanne,
+John,
+Carlo,
+Ivo,
+Tejaswini
 
 How to run:
   1. Get a solr instance running by entering the following on the commandline:
