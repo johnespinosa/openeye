@@ -8,7 +8,7 @@ Ivo,
 Tejaswini
 
 How to run:
-  1. Get a solr instance running by entering the following on the commandline (note solr will run until you shut it down):
+  1. Get a solr instance running by entering the following on the commandline (note solr will run until you stop it in the commandline):
     1. curl -O http://apache.mirror1.spango.com/lucene/solr/5.0.0/solr-5.0.0.tgz
     2. tar zxf solr-5.0.0.tgz
     3. rm solr-5.0.0.tgz
