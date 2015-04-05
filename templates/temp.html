@@ -87,21 +87,34 @@
 						  			<a href="{{result["url"][0]}}">
 										{{result["title"][0]}}
 									</a>
-						  		</h3>
-						  		<p>by {{result["organization"][0]}}</p>
+								</h3>
+								<span>
+						  		by {{result["organization"][0]}}
+						  		{% if result["related"] %}
+									<span class="label label-success">Linked</span>
+								{% endif %}
+								</span>
 						  	</div>
 						  	<div class="panel-body">
 						  		<!-- Body -->
-						  		<h4>Related News:</h4>
+						  		<p>{{result["content"][0]}}</p>
 						  		</br>
-						  		{% for article in result["related"] %}
-									<a href="{{article["url"][0]}}">
-										{{article["title"][0]}}
-									</a>
-									<p>
-										by {{article["organization"][0]}}
-									</p>
-								{% endfor %}
+
+						  		{% if result["related"] %}
+						  		<div>
+							  		<!-- Related news -->
+							  		<h4>Related News:</h4>
+							  		</br>
+							  		{% for article in result["related"] %}
+										<a href="{{article["url"][0]}}">
+											{{article["title"][0]}}
+										</a>
+										<p>
+											by {{article["organization"][0]}}
+										</p>
+									{% endfor %}
+								</div>
+								{% endif %}
 						  	</div>
 						  </div>
 						</div>
