@@ -22,3 +22,10 @@ How to run:
     1. python openeye_server.py
   7. Enter the url specified in the output from running openeye_server.py into your favorite web browser and use OpenEye!
   8. Bob's your uncle.
+
+How to shut down:
+  1. Stop the openeye server:
+    1. control + C in the terminal you entered "python openeye_server.py"
+  2. Stop the solr instance:
+    1. Navigate into the solr-5.0.0 directory you started solr in
+    2. bin/solr stop -all
