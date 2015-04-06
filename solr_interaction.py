@@ -3,6 +3,7 @@ from article import Article
 import operator
 from textblob import TextBlob
 import solr
+from numpy.lib import arrayterator
 
 
 NUM_TOP_ARTICLES = 30
@@ -140,20 +141,61 @@ def get_similar_articles(_id, solr_instance):
             result.append(article)
     return result
 
+def get_titles(articles):
+    '''
+    Returns an array of titles derived from an array of articles
+    @param articles: An array of articles 
+    @return: An array of the titles of the articles
+    '''
+    result = []
+    for article in articles:
+        result.append(article['title'][0])
+    return result
+
+def get_groups():
+    '''
+    Gets the partition made by the heuristic function
+    @return: An array of groups of related articles
+    '''
+    result = []
+    for i in range(1,23):
+        related_articles = solr_instance.query('parent_id:' + str(i)).results
+        if len(related_articles) > 0:
+            result.append(get_titles(related_articles))
+    return result
+
+def add_similar_articles(articles):
+    '''
+    Each article is assigned the articles related to it
+    @param articles: A list of articles 
+    '''
+    for article in articles:
+        related_articles = get_similar_articles(int(article['id']), solr_instance)
+        article['related'] = related_articles
+
 def search_query(query_string, solr_instance):
-    return solr_instance.query(query_string).results
+    '''
+    Gets the results associated with entering a query in the search bar of OpenEye.
+    @param query_string: A query string to get articles
+    @param solr_instance: The solr instance that is being queried  
+    @return: A list of articles and their related articles
+    '''
+    result = solr_instance.query(query_string).results
+    add_similar_articles(result)
+    return result
 
 solr_instance = solr.SolrConnection('http://localhost:8983/solr/gettingstarted')
 update_parents(solr_instance)
 
 #test code
 '''
+for group in get_groups():
+    print group
 response = solr_instance.query('id:1')
 print response.results
 for hit in response.results:
     print hit.get('title', "shoe through")[0]
     print hit.get('parent_id', "no parent")[0] == 1
-
 response = solr_instance.query('id:2')
 for hit in response.results:
     print hit.get('title', "shoe through")[0]
@@ -164,7 +206,6 @@ for hit in response.results:
     print hit.get('title', "shoe through")[0]
     print hit.get('parent_id', "no parent")[0] == 3
     
-
 print len(get_similar_articles(3, solr_instance)) == 0
 print len(get_similar_articles(1, solr_instance)) == 1 
 '''  
