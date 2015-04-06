@@ -90,9 +90,7 @@
 								</h3>
 								<span>
 						  		by {{result["organization"][0]}}
-						  		{% if result["related"] %}
-									<span class="label label-success">Linked</span>
-								{% endif %}
+						  		<!-- deleated -->
 								</span>
 						  	</div>
 						  	<div class="panel-body">
@@ -109,9 +107,15 @@
 										<a href="{{article["url"][0]}}">
 											{{article["title"][0]}}
 										</a>
-										<p>
-											by {{article["organization"][0]}}
-										</p>
+										<span>
+											<p>
+												by {{article["organization"][0]}}
+											</p>
+										{% if (result["title"][0] + "|" + article["title"][0]) | are_crowdflower_related%}
+											<span class="label label-success">Linked</span>
+										{% endif %}
+										<br/><br/>
+										</span>
 									{% endfor %}
 								</div>
 								{% endif %}
