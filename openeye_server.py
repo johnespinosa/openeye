@@ -1,5 +1,4 @@
-import solr_interaction
-from solr_interaction import solr_instance
+from solr_interaction import solr_instance, search_query
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -12,7 +11,7 @@ def hello_world():
 @app.route('/search',  methods=['GET', 'POST'])
 def search():
     query_string = request.form['search_input']
-    results = solr_interaction.search_query(query_string, solr_instance)
+    results = search_query(query_string, solr_instance)
     return render_template('temp.html', results = results)
     
 app.debug = True
